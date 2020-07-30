@@ -38,6 +38,18 @@ namespace NadTechWebAPI.Controllers.Tests
         }
 
         [TestMethod()]
+        public void Find_ShouldReturnCorrectCustomer()
+        {
+            var testCustomerName = "Doe";
+            var customer = CustomerData.Customers.FirstOrDefault(d => d.Name == testCustomerName);
+            var controller = new CustomerController();
+
+            var response = controller.Find(testCustomerName) as OkNegotiatedContentResult<Customer>;
+            Assert.IsNotNull(response.Content);
+            Assert.AreEqual(response.Content.CustomerId, customer.CustomerId);
+        }
+
+        [TestMethod()]
         public void Post_ShouldReturnCustomer()
         {
             var newCustomer = new Customer

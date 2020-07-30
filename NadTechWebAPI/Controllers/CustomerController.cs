@@ -28,6 +28,15 @@ namespace NadTechWebAPI.Controllers
             return NotFound();
         }
 
+        [HttpGet]
+        public IHttpActionResult Find(string Name)
+        {
+            var customer = Customers.FirstOrDefault(d => d.Name == Name);
+            if (customer != null)
+                return Ok(customer);
+            return NotFound();
+        }
+
         [HttpPost]
         public IHttpActionResult Post([FromBody]Customer customer)
         {
