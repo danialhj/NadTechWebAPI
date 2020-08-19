@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace NadTechWebAPI.Controllers
 {
@@ -18,7 +19,7 @@ namespace NadTechWebAPI.Controllers
         {
             return Ok(Customers);
         }
-
+        
         [HttpGet]
         public IHttpActionResult Get(int Id)
         {
@@ -44,7 +45,8 @@ namespace NadTechWebAPI.Controllers
                 return BadRequest("Invalid Customer");
 
             Customers.Add(customer);
-            return CreatedAtRoute("Get", new { id = customer.CustomerId }, customer);
+            return Created($"/api/customer/{customer.CustomerId}", customer);
+            //return CreatedAtRoute("Get", new { Id = customer.CustomerId }, customer);
         }
 
         [HttpDelete]
@@ -79,7 +81,8 @@ namespace NadTechWebAPI.Controllers
             else
             {
                 Customers.Add(customer);
-                return CreatedAtRoute("Get", new { id = customer.CustomerId }, customer);
+                return Created($"/api/customer/{customer.CustomerId}", customer);
+                //return CreatedAtRoute("Get", new { Id = customer.CustomerId }, customer);
             }
         }
     }
